@@ -37,7 +37,7 @@ let tests =
   OUnit2.(>:::)(
     "referee_test",
     [
-      OUnit2.(>::)("test_run_tournament_mix_types_of_players", _ =>
+      OUnit2.(>::)("test_run_tournament_mix_types_of_players", _ =>{
         let failed = [
           MP.get_player_fail_at_placement("failed-0"),
           MP.get_player_fail_at_turn_action("failed-1"),
@@ -86,7 +86,7 @@ let tests =
           others,
           result.final_winners @ result.all_losers,
         );
-      ),
+      }),
     ],
   );
 let _ = OUnit2.run_test_tt_main(tests);

@@ -12,7 +12,7 @@ let tests =
   OUnit2.(>:::)(
     "game_state_tests",
     [
-      OUnit2.(>::)("test_construction", _ =>
+      OUnit2.(>::)("test_construction", _ =>{
         let conf =
           Conf.create(~width=3, ~height=3)
           |> Conf.set_default_num_of_fish(3)
@@ -34,8 +34,8 @@ let tests =
         OUnit2.assert_raises(expect, () =>
           GS.create(board, [Color.Black, Color.Red, Color.Black])
         );
-      ),
-      OUnit2.(>::)("test_get_player_with_color", _ =>
+      }),
+      OUnit2.(>::)("test_get_player_with_color", _ =>{
         let conf =
           Conf.create(~width=3, ~height=3)
           |> Conf.set_default_num_of_fish(3)
@@ -60,8 +60,8 @@ let tests =
         OUnit2.assert_raises(expect, () =>
           GS.get_player_with_color(state, PS.Player_color.White)
         );
-      ),
-      OUnit2.(>::)("test_remove_current_player", _ =>
+      }),
+      OUnit2.(>::)("test_remove_current_player", _ =>{
         let conf =
           Conf.create(~width=3, ~height=3)
           |> Conf.set_default_num_of_fish(3)
@@ -96,8 +96,8 @@ let tests =
           None,
           Option.bind(~f=GS.remove_current_player, state),
         );
-      ),
-      OUnit2.(>::)("test_rotate_players", _ =>
+      }),
+      OUnit2.(>::)("test_rotate_players", _ =>{
         let conf =
           Conf.create(~width=3, ~height=3)
           |> Conf.set_default_num_of_fish(3)
@@ -144,8 +144,8 @@ let tests =
         let state = GS.rotate_to_next_player(state);
         OUnit.assert_equal(PS.create(PS.Player_color.White)) @@
         GS.get_current_player(state);
-      ),
-      OUnit2.(>::)("test_place_penguin", _ =>
+      }),
+      OUnit2.(>::)("test_place_penguin", _ =>{
         let hole_pos = {Pos.row: 2, col: 2};
         let board =
           Conf.create(~width=3, ~height=3)
@@ -197,8 +197,8 @@ let tests =
         OUnit2.assert_raises(expect, () =>
           GS.place_penguin(state1, Color.White, pos11)
         );
-      ),
-      OUnit2.(>::)("test_move_penguin", _ =>
+      }),
+      OUnit2.(>::)("test_move_penguin", _ =>{
         /* Score and board should be updated.
          * Make sure game state "wires the 2 components up" */
         let hole_pos = {Pos.row: 0, col: 1};
@@ -255,8 +255,8 @@ let tests =
         OUnit2.assert_raises(expect, () =>
           GS.move_penguin(state2, pos13, pos12)
         );
-      ),
-      OUnit2.(>::)("test_get_board_minus_penguins", _ =>
+      }),
+      OUnit2.(>::)("test_get_board_minus_penguins", _ =>{
         let board =
           Conf.create(~width=5, ~height=5)
           |> Conf.set_default_num_of_fish(3)
@@ -270,15 +270,15 @@ let tests =
         let state = GS.place_penguin(state, Color.Red, pos23);
         let board = GS.get_board_minus_penguins(state);
         Pos.create_positions_within(~width=5, ~height=5)
-        |> List.iter(~f=pos =>
+        |> List.iter(~f=pos =>{
              let tile = B.get_tile_at(board, pos);
              if (Pos.equal(pos, pos11) || Pos.equal(pos, pos23)) {
                OUnit2.assert_equal(true) @@ T.is_hole(tile);
              } else {
                OUnit2.assert_equal(false) @@ T.is_hole(tile);
              };
-           );
-      ),
+           });
+     } ),
     ],
   );
 

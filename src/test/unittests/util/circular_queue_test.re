@@ -4,7 +4,7 @@ let tests =
   OUnit2.(>:::)(
     "circular_queue_tests",
     [
-      OUnit2.(>::)("test_create", _ =>
+      OUnit2.(>::)("test_create", _ =>{
         let int_cq = CQ.create(42, []);
         OUnit.assert_equal(42) @@ CQ.get_current(int_cq);
         OUnit.assert_equal([42]) @@ CQ.to_list(int_cq);
@@ -12,8 +12,8 @@ let tests =
         let int_cq = CQ.create(2, [1, 3]);
         OUnit.assert_equal(2) @@ CQ.get_current(int_cq);
         OUnit.assert_equal([2, 1, 3]) @@ CQ.to_list(int_cq);
-      ),
-      OUnit2.(>::)("test_rotate", _ =>
+      }),
+      OUnit2.(>::)("test_rotate", _ =>{
         let int_cq = CQ.create(17, []) |> CQ.rotate;
         OUnit.assert_equal(17) @@ CQ.get_current(int_cq);
         OUnit.assert_equal([17]) @@ CQ.to_list(int_cq);
@@ -31,8 +31,8 @@ let tests =
         let int_cq = CQ.rotate(int_cq);
         OUnit.assert_equal([2, 1, 3]) @@ CQ.to_list(int_cq);
         OUnit.assert_equal(2) @@ CQ.get_current(int_cq);
-      ),
-      OUnit2.(>::)("test_remove_current", _ =>
+      }),
+      OUnit2.(>::)("test_remove_current", _ =>{
         let int_cq = CQ.create(42, []);
         OUnit.assert_equal(None) @@ CQ.remove_current(int_cq);
 
@@ -44,7 +44,7 @@ let tests =
           Some([3, 1]),
           Option.map(CQ.to_list, Option.map(CQ.rotate, int_cq13)),
         );
-      ),
+     } ),
     ],
   );
 

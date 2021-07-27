@@ -10,7 +10,7 @@ let tests =
   OUnit2.(>:::)(
     "game_tree_test",
     [
-      OUnit2.(>::)("test_construction", _ =>
+      OUnit2.(>::)("test_construction", _ =>{
         let conf =
           Conf.create(~width=3, ~height=3)
           |> Conf.set_default_num_of_fish(3)
@@ -20,8 +20,8 @@ let tests =
         let state = GS.create(board, colors);
         let tree = GT.create(state);
         OUnit.assert_equal(state) @@ GT.get_state(tree);
-      ),
-      OUnit2.(>::)("test_get_subtrees_end", _ =>
+     } ),
+      OUnit2.(>::)("test_get_subtrees_end", _ =>{
         /* <red>   <0,1>   <--->
          *     <--->   <1,1>   <bro> */
         let red_pos = {Pos.row: 0, col: 0};
@@ -39,8 +39,8 @@ let tests =
         let state = GS.place_penguin(state, Color.Brown, brown_pos);
         let tree = GT.create(state);
         OUnit.assert_equal([]) @@ GT.get_subtrees(tree);
-      ),
-      OUnit2.(>::)("test_get_subtrees_skip", _ =>
+      }),
+      OUnit2.(>::)("test_get_subtrees_skip", _ =>{
         /* <red>   <0,1>   <0,2>
          *     <--->   <bro>   <1,2> */
         let red_pos = {Pos.row: 0, col: 0};
@@ -61,8 +61,8 @@ let tests =
           List.map(((a, t)) => (a, GT.get_state(t))) @@
           GT.get_subtrees(tree),
         );
-      ),
-      OUnit2.(>::)("test_get_subtrees", _ =>
+      }),
+      OUnit2.(>::)("test_get_subtrees", _ =>{
         /* <red>   <0,1>   <0,2>
          *     <--->   <bro>   <1,2> */
         let red_pos = {Pos.row: 0, col: 0};
@@ -105,7 +105,7 @@ let tests =
             act_state_pairs,
           ),
         );
-      ),
+      }),
     ],
   );
 
