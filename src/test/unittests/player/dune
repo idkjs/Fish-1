@@ -1,4 +1,3 @@
 (tests
-  (names strategy_test)
-  (libraries ounit2 fish)
-)
+ (names strategy_test)
+ (libraries ounit2 fish))
