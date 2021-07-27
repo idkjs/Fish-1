@@ -7,7 +7,7 @@ let board_tests =
   OUnit2.(>:::)(
     "board_tests",
     [
-      OUnit2.(>::)("test_construction", _ =>{
+      OUnit2.(>::)("test_construction", _ => {
         let (width, height) = (3, 4);
         let holes = [{Pos.row: 2, col: 2}, {Pos.row: 0, col: 0}];
         let min_one_fish_tile = 3;
@@ -23,7 +23,7 @@ let board_tests =
         OUnit2.assert_equal(height, B.get_height(board));
         let fishes: list(int) = (
           Pos.create_positions_within(~width, ~height)
-          |> List.map(pos =>{
+          |> List.map(pos => {
                let tile = B.get_tile_at(board, pos);
                if (List.mem(pos, holes)) {
                  let _ = OUnit2.assert_equal(true, T.is_hole(tile));
@@ -53,10 +53,10 @@ let board_tests =
           B.create @@ Conf.set_height(0, conf)
         );
         OUnit2.assert_raises(expect, () =>
-          B.create @@ Conf.set_width(- 2, conf)
+          B.create @@ Conf.set_width(-2, conf)
         );
         OUnit2.assert_raises(expect, () =>
-          B.create @@ Conf.set_height(- 1, conf)
+          B.create @@ Conf.set_height(-1, conf)
         );
 
         /* within board */
@@ -73,7 +73,7 @@ let board_tests =
         OUnit.assert_equal(false) @@
         B.within_board(board, {Pos.row: 0, col: (-1)});
       }),
-      OUnit2.(>::)("test_remove_tile_at", _ =>{
+      OUnit2.(>::)("test_remove_tile_at", _ => {
         /* 1. removes correct tile
          * 2. errors if pos is out of bound */
         let (width, height) = (3, 4);
@@ -93,7 +93,7 @@ let board_tests =
         OUnit2.assert_equal(width, B.get_width(board));
         OUnit2.assert_equal(height, B.get_height(board));
         Pos.create_positions_within(~width, ~height)
-        |> List.iter(pos =>{
+        |> List.iter(pos => {
              let tile = B.get_tile_at(board, pos);
              if (pos == pos11) {
                OUnit2.assert_equal(true) @@ T.is_hole(tile);
@@ -107,7 +107,7 @@ let board_tests =
         OUnit2.assert_raises(expect, _ => B.get_tile_at(board, pos33));
         OUnit2.assert_raises(expect, _ => B.remove_tile_at(board, pos33));
       }),
-      OUnit2.(>::)("test_get_copy", _ =>{
+      OUnit2.(>::)("test_get_copy", _ => {
         /* update original has no effect on copy */
         let (width, height) = (3, 4);
         let holes = [];
@@ -124,7 +124,7 @@ let board_tests =
         let copy = B.get_copy(board);
         let _ = B.remove_tile_at(board, pos11);
         Pos.create_positions_within(~width, ~height)
-        |> List.iter(pos =>{
+        |> List.iter(pos => {
              let tile = B.get_tile_at(copy, pos);
              OUnit2.assert_equal(3) @@ T.get_fish(tile);
            });
@@ -134,7 +134,7 @@ let board_tests =
        * (2, 0)  (2, 1)  (2, 2)  (2, 3)  (2, 4)
        *     (3, 0)  (----)  (3, 2)  (3, 3)  (3, 4)
        * (4, 0)  (4, 1)  (4, 2)  (4, 3)  (4, 4) */
-      OUnit2.(>::)("test_get_reachable_from", _ =>{
+      OUnit2.(>::)("test_get_reachable_from", _ => {
         let (width, height) = (5, 5);
         let holes = [];
         let min_one_fish_tile = 0;
@@ -175,7 +175,7 @@ let config_tests =
   OUnit2.(>:::)(
     "board_config_tests",
     [
-      OUnit2.(>::)("test_construction", _ =>{
+      OUnit2.(>::)("test_construction", _ => {
         let conf = Conf.create(~width=3, ~height=4);
         OUnit2.assert_equal(3) @@ Conf.get_width(conf);
         OUnit2.assert_equal(4) @@ Conf.get_height(conf);
@@ -183,7 +183,7 @@ let config_tests =
         OUnit2.assert_equal(0) @@ Conf.get_min_num_of_one_fish_tile(conf);
         OUnit2.assert_equal(1) @@ Conf.get_default_num_of_fish(conf);
       }),
-      OUnit2.(>::)("test_setter_getter", _ =>{
+      OUnit2.(>::)("test_setter_getter", _ => {
         /* Only 1 field changes */
         let conf = Conf.create(~width=3, ~height=5);
 
@@ -235,7 +235,7 @@ let config_tests =
         OUnit2.assert_equal([]) @@ Conf.get_holes(conf);
         OUnit2.assert_equal(0) @@ Conf.get_min_num_of_one_fish_tile(conf);
         OUnit2.assert_equal(1) @@ Conf.get_default_num_of_fish(conf);
-     } ),
+      }),
     ],
   );
 

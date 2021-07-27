@@ -23,7 +23,7 @@ let tests =
   OUnit2.(>:::)(
     "referee_test",
     [
-      OUnit2.(>::)("test_run_game_inputs_validation", _ =>{
+      OUnit2.(>::)("test_run_game_inputs_validation", _ => {
         /* Use different board config and # of players to make sure [run_game]
          * properly errors on invalid inputs */
         let holes = [
@@ -92,7 +92,7 @@ let tests =
           )
         );
       }),
-      OUnit2.(>::)("test_run_game_all_fail_at_color_assignment", _ =>{
+      OUnit2.(>::)("test_run_game_all_fail_at_color_assignment", _ => {
         let referee = Referee.create(~config=fast_timeout_config, ());
         let players =
           List.init(
@@ -110,7 +110,7 @@ let tests =
         Util.check_same_set_of_players_by_names(players, result.failed);
       }),
       OUnit2.(>::)(
-        "test_run_game_all_fail_at_color_assignment_and_disqualification", _ =>{
+        "test_run_game_all_fail_at_color_assignment_and_disqualification", _ => {
         let referee = Referee.create(~config=fast_timeout_config, ());
         let players =
           List.init(
@@ -126,8 +126,8 @@ let tests =
         OUnit.assert_equal([], result.cheaters);
         OUnit.assert_equal([], result.rest);
         Util.check_same_set_of_players_by_names(players, result.failed);
-        }),
-      OUnit2.(>::)("test_run_game_all_fail/cheat_at_penguin_placement", _ =>{
+      }),
+      OUnit2.(>::)("test_run_game_all_fail/cheat_at_penguin_placement", _ => {
         let referee = Referee.create(~config=fast_timeout_config, ());
         let cheaters = [
           Mock_players.get_player_cheat_at_placement("cheat-1"),
@@ -144,7 +144,7 @@ let tests =
         Util.check_same_set_of_players_by_names(failed, result.failed);
         Util.check_same_set_of_players_by_names(cheaters, result.cheaters);
       }),
-      OUnit2.(>::)("test_run_game_all_fail/cheat_at_turn_action", _ =>{
+      OUnit2.(>::)("test_run_game_all_fail/cheat_at_turn_action", _ => {
         let referee = Referee.create(~config=fast_timeout_config, ());
         let cheaters = [
           Mock_players.get_player_cheat_at_turn_action("cheat-1"),
@@ -161,7 +161,7 @@ let tests =
         Util.check_same_set_of_players_by_names(failed, result.failed);
         Util.check_same_set_of_players_by_names(cheaters, result.cheaters);
       }),
-      OUnit2.(>::)("test_run_game_mix_good_and_bad_players_multiple_runs", _ =>{
+      OUnit2.(>::)("test_run_game_mix_good_and_bad_players_multiple_runs", _ => {
         let referee = Referee.create(~config=fast_timeout_config, ());
         let winners = [Util.get_default_ai_player(42)];
         let losers = [Util.get_default_ai_player(23)];
@@ -206,7 +206,7 @@ let tests =
         OUnit2.assert_equal([], result.rest);
         Util.check_same_set_of_players_by_names(failed, result.failed);
         Util.check_same_set_of_players_by_names(cheaters, result.cheaters);
-     } ),
+      }),
     ],
   );
 let _ = OUnit2.run_test_tt_main(tests);

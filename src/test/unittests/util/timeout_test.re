@@ -7,7 +7,7 @@ let tests =
   OUnit2.(>:::)(
     "timeout_tests",
     [
-      OUnit2.(>::)("test_call_with_timeout_ms_single_thread", _ =>{
+      OUnit2.(>::)("test_call_with_timeout_ms_single_thread", _ => {
         let start = Unix.gettimeofday();
         let result = T.call_with_timeout_ms(block_for_a_long_time, 1000);
         let time_spent = Unix.gettimeofday() -. start;

@@ -5,12 +5,12 @@ let tests =
   OUnit2.(>:::)(
     "penguin_tests",
     [
-      OUnit2.(>::)("test_construction", _ =>{
+      OUnit2.(>::)("test_construction", _ => {
         let pos00 = {Pos.row: 0, col: 0};
         let p = P.create(pos00);
         OUnit2.assert_equal(pos00, P.get_position(p));
       }),
-      OUnit2.(>::)("test_set_position", _ =>{
+      OUnit2.(>::)("test_set_position", _ => {
         /* 1. new penguin has expected position, and nothing else changes
          * 2. no side effect */
         let pos34 = {Pos.row: 3, col: 4};

@@ -48,8 +48,8 @@ let generate_until_moveable_subtree = (t): unit => {
       t.subtrees = Some(subtrees);
       Some(t);
     | [] =>
-      open /* current player in [t] can't move, skip it */
-           Option.Let_syntax;
+      open Option.Let_syntax; /* current player in [t] can't move, skip it */
+
       let next_gs = GS.rotate_to_next_player(t.state);
       let next_color = GS.get_current_player(next_gs) |> PS.get_color;
       let next_t = {...t, state: next_gs};

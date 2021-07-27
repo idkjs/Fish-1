@@ -12,7 +12,7 @@ let tests =
   OUnit2.(>:::)(
     "strategy_test",
     [
-      OUnit2.(>::)("test_place_penguin_scanning", _ =>{
+      OUnit2.(>::)("test_place_penguin_scanning", _ => {
         /* <0,0>   <hol>   <hol>
          *     <hol>   <1,1>   <1,2> */
         let holes = [
@@ -44,7 +44,7 @@ let tests =
         let expect = Failure("No position to place penguin on board");
         OUnit2.assert_raises(expect, _ => ST.Penguin_placer.use(st, state));
       }),
-      OUnit2.(>::)("test_turn_action_minimax_skip", _ =>{
+      OUnit2.(>::)("test_turn_action_minimax_skip", _ => {
         /* <red>   <hol>   <0,2>
          *     <hol>   <blk>   <1,2> */
         let holes = [{Pos.row: 0, col: 1}, {Pos.row: 1, col: 0}];
@@ -63,7 +63,7 @@ let tests =
         ST.Turn_actor.use(st) @@
         GT.create(gs);
       }),
-      OUnit2.(>::)("test_turn_action_minimax_move", _ =>{
+      OUnit2.(>::)("test_turn_action_minimax_move", _ => {
         /* <hol>   <0,1>   <0,2>
          *     <red>   <1,1>   <1,2>
          * <2,0>   <2,1>   <wit> */

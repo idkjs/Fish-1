@@ -7,13 +7,13 @@ let tests =
   OUnit2.(>:::)(
     "player_state_tests",
     [
-      OUnit2.(>::)("test_construction", _ =>{
+      OUnit2.(>::)("test_construction", _ => {
         let p = P.create(PC.Black);
         OUnit2.assert_equal(PC.Black, P.get_color(p));
         OUnit2.assert_equal(0, P.get_score(p));
         OUnit2.assert_equal([], P.get_penguins(p));
       }),
-      OUnit2.(>::)("test_set_score", _ =>{
+      OUnit2.(>::)("test_set_score", _ => {
         /* 1. only penguin positions are updated, correctly
          * 2. no side effect
          * 3. errors on bad input */
@@ -26,9 +26,9 @@ let tests =
         OUnit2.assert_equal(42, P.get_score(p2));
         OUnit2.assert_equal([], P.get_penguins(p2));
         let expect = Failure("score must be non-negative");
-        OUnit2.assert_raises(expect, () => P.set_score(p1, - 1));
+        OUnit2.assert_raises(expect, () => P.set_score(p1, -1));
       }),
-      OUnit2.(>::)("test_add_penguin", _ =>{
+      OUnit2.(>::)("test_add_penguin", _ => {
         /* 1. only penguin positions are updated, correctly
          * 2. no side effect */
         let p1 = P.create(PC.Black);
@@ -41,7 +41,7 @@ let tests =
         OUnit2.assert_equal(0, P.get_score(p2));
         OUnit2.assert_equal([PN.create(pos)], P.get_penguins(p2));
       }),
-      OUnit2.(>::)("test_move_penguin", _ =>{
+      OUnit2.(>::)("test_move_penguin", _ => {
         /* 1. only penguin positions and score are updated, correctly
          * 2. no side effect
          * 3. return None when no penguin is at 1st position */
@@ -58,7 +58,7 @@ let tests =
         OUnit2.assert_equal([PN.create(dst)], P.get_penguins(p3));
         OUnit2.assert_equal(None) @@ P.move_penguin(p3, src, dst);
       }),
-      OUnit2.(>::)("test_penguin_order", _ =>{
+      OUnit2.(>::)("test_penguin_order", _ => {
         /* order of penguins should be preserved by the time they were added. */
         let p1 = P.create(PC.White);
         let pos11 = {Pos.row: 1, col: 1};
